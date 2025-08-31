@@ -1,6 +1,9 @@
 import { Suspense, lazy, type JSX } from 'react';
 import type { RouteObject } from 'react-router-dom';
 import FullScreenLoader from '../components/FullScreenLoader';
+import LoginPage from '../auth/pages/login.page';
+import Layout from '../components/Layout';
+// import RequireUser from '../auth/components/requireUser';
 
 const Loadable =
   (Component: React.ComponentType<any>) => (props: JSX.IntrinsicAttributes) =>
@@ -18,11 +21,23 @@ const ListFinancePage = Loadable(lazy(() => import('frontend_top_finance/ListFin
 const CreateFinancePage = Loadable(lazy(() => import('frontend_top_finance/CreateFinancePage')));
 const EditFinancePage = Loadable(lazy(() => import('frontend_top_finance/EditFinancePage')));
 
-const normalRoutes: RouteObject = {
+const authRoutes: RouteObject = {
   path: '*',
   children: [
     {
+      path: 'login',
+      element: <LoginPage />,
+    },
+  ],
+};
+
+const normalRoutes: RouteObject = {
+  path: '*',
+  element: <Layout />,
+  children: [
+    {
       path: 'users',
+      // element: <RequireUser allowedRoles={['admin']} />,
       children: [
         {
           path: '',
@@ -68,6 +83,6 @@ const normalRoutes: RouteObject = {
   ],
 };
 
-const routes: RouteObject[] = [normalRoutes];
+const routes: RouteObject[] = [authRoutes, normalRoutes];
 
 export default routes;
