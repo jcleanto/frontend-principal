@@ -6,7 +6,7 @@ import type {
   IUserResponse,
 } from './types';
 
-const BASE_URL = 'http://localhost:10000/';
+const BASE_URL = 'http://localhost:3000/';
 
 export const authApi = axios.create({
   baseURL: BASE_URL,
