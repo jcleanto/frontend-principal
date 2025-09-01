@@ -14,3 +14,10 @@ $ npm install
 # development
 $ npm run dev
 ```
+
+## Acessar aplicação
+
+http://localhost:5000/login
+
+Email: administrador@email.com
+Senha: 12345678
