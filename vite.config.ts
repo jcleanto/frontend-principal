@@ -22,15 +22,15 @@ export default defineConfig({
         '@tanstack/react-query',
         '@mui/x-data-grid',
         // added all for testing
-        '@emotion/react',
-        '@emotion/styled',
-        '@hookform/resolvers',
-        '@mui/icons-material',
-        '@mui/material',
-        'axios',
-        'react-hook-form',
-        'react-toastify',
-        'zod'
+        // '@emotion/react',
+        // '@emotion/styled',
+        // '@hookform/resolvers',
+        // '@mui/icons-material',
+        // '@mui/material',
+        // 'axios',
+        // 'react-hook-form',
+        // 'react-toastify',
+        // 'zod'
       ]
     })
   ],
@@ -39,10 +39,10 @@ export default defineConfig({
     strictPort: true,
   },
   server: {
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 5000,
     strictPort: true,
-    origin: "http://0.0.0.0:5000",
+    origin: "http://localhost:5000",
     fs: { allow: ['.', '../shared'] }
   },
   build: {
