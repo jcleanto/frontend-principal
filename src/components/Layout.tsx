@@ -23,6 +23,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import { logoutUserFn } from '../auth/api/authApi';
+import Popover from '@mui/material/Popover';
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 280;
 
@@ -111,6 +113,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Layout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   // TODO: temporary get Auth User stored in localStorage, as the authentication flow is still not finished
   const localStorageItem = localStorage.getItem('authUser');
@@ -154,6 +157,17 @@ export default function Layout() {
     logoutUser();
   };
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openUserInfo = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -173,9 +187,29 @@ export default function Layout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Desafio Tinnova (Embraer)
           </Typography>
+          <IconButton edge="end" aria-describedby={id} onClick={handleClick}>
+            <PersonIcon />
+          </IconButton>
+          <Popover
+            id={id}
+            open={openUserInfo}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <Box sx={{ padding: '10px 30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Avatar sx={{ width: 60, height: 60 }}>
+                <PersonIcon />
+              </Avatar>
+              <Typography sx={{ p: 2 }}>{authUser.email}</Typography>
+            </Box>
+          </Popover>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
