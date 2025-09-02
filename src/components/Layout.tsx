@@ -112,6 +112,13 @@ export default function Layout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  // TODO: temporary get Auth User stored in localStorage, as the authentication flow is still not finished
+  const localStorageItem = localStorage.getItem('authUser');
+  let authUser = null;
+  if (localStorageItem) {
+    authUser = JSON.parse(localStorageItem);
+  }
+
   const { mutate: logoutUser } = useMutation(
     { mutationFn: async () => await logoutUserFn(),
       onSuccess: () => {
@@ -180,7 +187,7 @@ export default function Layout() {
         <Divider />
         <List>
           {[{ text: 'Usuários', path: '/users' }, { text: 'Lançamentos Financeiros', path: '/finances' }].map(({ text, path }, index) => (
-            <ListItem component={Link} to={path} key={text} disablePadding sx={{ display: 'block' }}>
+            <ListItem component={Link} to={path} key={text} disablePadding sx={{ display: authUser.role === 'admin' || path === '/finances' ? 'block' : 'none' }}>
               <ListItemButton
                 title={text}
                 sx={[
