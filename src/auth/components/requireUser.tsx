@@ -17,7 +17,7 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   } = useQuery({
     queryKey: ['authUser', {
       retry: 1,
-      select: (data: { data: { user: any; }; }) => data.data.user,
+      select: (data: { user: any; }) => data.user,
       onSuccess: (data: any) => {
         stateContext.dispatch({ type: 'SET_USER', payload: data });
       },
@@ -32,7 +32,7 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   }
 
   return (cookies.logged_in || user) &&
-    allowedRoles.includes(user?.data.role as string) ? (
+    allowedRoles.includes(user?.role as string) ? (
     <Outlet />
   ) : cookies.logged_in && user ? (
     <Navigate to='/unauthorized' state={{ from: location }} replace />

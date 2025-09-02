@@ -26,7 +26,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = ((location.state as any)?.from.pathname as string) || '/users';
+  const from = ((location.state as any)?.from.pathname as string) || '/';
 
   const methods = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),

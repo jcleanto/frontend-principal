@@ -3,7 +3,8 @@ import type { RouteObject } from 'react-router-dom';
 import FullScreenLoader from '../components/FullScreenLoader';
 import LoginPage from '../auth/pages/login.page';
 import Layout from '../components/Layout';
-// import RequireUser from '../auth/components/requireUser';
+import RequireUser from '../auth/components/requireUser';
+import HomePage from '../auth/pages/home.page';
 
 const Loadable =
   (Component: React.ComponentType<any>) => (props: JSX.IntrinsicAttributes) =>
@@ -36,8 +37,12 @@ const normalRoutes: RouteObject = {
   element: <Layout />,
   children: [
     {
+      index: true,
+      element: <HomePage />,
+    },
+    {
       path: 'users',
-      // element: <RequireUser allowedRoles={['admin']} />,
+      element: <RequireUser allowedRoles={['admin']} />,
       children: [
         {
           path: '',

@@ -3,7 +3,7 @@ import type { LoginInput } from '../pages/login.page';
 import type {
   IGenericResponse,
   ILoginResponse,
-  IUserResponse,
+  IUser,
 } from './types';
 
 const BASE_URL = 'http://localhost:3000/';
@@ -58,7 +58,7 @@ export const logoutUserFn = async () => {
 
 export const getMeFn = async () => {
   const accessToken = localStorage.getItem('token');
-  const response = await authApi.get<IUserResponse>('auth/users/me', {
+  const response = await authApi.get<IUser>('auth/users/me', {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
