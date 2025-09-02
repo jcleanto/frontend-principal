@@ -19,5 +19,5 @@ $ npm run dev
 
 http://localhost:5000/login
 
-Email: administrador@email.com
+Email: administrador@email.com<br/>
 Senha: 12345678
